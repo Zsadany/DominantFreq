@@ -10,7 +10,7 @@ import com.dominantfreq.display.model.BulkSettingsPanel;
 import com.dominantfreq.display.model.EcgItem;
 import com.dominantfreq.display.model.handlers.ButtonHandlers;
 import com.dominantfreq.display.model.styles.ButtonStyles;
-import com.dominantfreq.export.EcgAnalysisExporter;
+import com.dominantfreq.export.EcgAnalysisToExcelExporter;
 import com.dominantfreq.model.data.EcgAnalysis;
 import com.dominantfreq.model.dataaccess.EcgLoader;
 import com.dominantfreq.service.bulkprocess.EcgBulkProcessingDaemon;
@@ -40,7 +40,7 @@ import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javafx.util.Duration;
 
-public class BulkApplication extends Application {
+public class BulkDisplay extends Application {
 	private static ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
 	private static final int ITEMS_PER_HALF_PAGE = 8;
 	private Stage stage;
@@ -264,7 +264,7 @@ public class BulkApplication extends Application {
 					if (ecgAnalysis != null)
 						toSave.add(ecgAnalysis);
 				}
-				EcgAnalysisExporter.export(toSave);
+				EcgAnalysisToExcelExporter.export(toSave);
 			}
 		};
 	}

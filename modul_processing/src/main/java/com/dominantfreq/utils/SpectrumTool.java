@@ -18,21 +18,10 @@ public class SpectrumTool {
 		for (int i = 0; i < samples.length; i++) {
 			filteredSamples[i] = samples[i];
 		}
-		filteredSamples = calculateFilteredArrayFrom(filteredSamples);
+		filteredSamples = Filter.calculateFilteredArrayFrom(filteredSamples);
 		return new RealSpectrum(spectrum.getName(), filteredSamples);
 	}
 
-	private static double[] calculateFilteredArrayFrom(double[] array) {
-		double[] result = new double[array.length];
-		result[0] = 0;
-		result[1] = 0;
-		result[array.length - 1] = 0;
-		result[array.length - 2] = 0;
-		for (int index = 2; index < array.length - 2; index++) {
-			result[index] = Filter.smoothing(array[index - 2], array[index - 1], array[index], array[index + 1], array[index + 2]);
-		}
-		return result;
-	}
 
 	public static RealSpectrum flattenEarlyPeaks(final RealSpectrum spectrum, int numberOfPointsToFlatten) {
 		double[] headlessSamples = spectrum.getSamples();

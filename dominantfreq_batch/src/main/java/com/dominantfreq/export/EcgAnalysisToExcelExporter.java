@@ -15,7 +15,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import com.dominantfreq.model.data.EcgAnalysis;
 import com.dominantfreq.model.data.SpectrumAnalysis;
 
-public class EcgAnalysisExporter {
+public class EcgAnalysisToExcelExporter {
 
 	public static void export(List<EcgAnalysis> toSave) {
 		if (!toSave.isEmpty()) {

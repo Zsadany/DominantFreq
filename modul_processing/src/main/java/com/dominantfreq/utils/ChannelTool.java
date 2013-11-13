@@ -53,25 +53,34 @@ public class ChannelTool {
 		return new Channel(name, frequency, samples);
 	}
 
-	public static Channel createArtificialChannel(final Channel channel) {
-		String name = channel.getName();
-		int frequency = channel.getFrequency();
-		Channel original = channel.copy();
-		original.normalize();
-		Channel diffChannel = absChannel(original);
-		double maxDiff = diffChannel.getMax() - diffChannel.getAvg();
-		double minDiff = diffChannel.getAvg() - diffChannel.getMin();
-		double treshold = Math.abs(maxDiff + minDiff) * 3 / 8;
-		double[] samples = new double[channel.length()];
-		for (int index = 2; index < channel.length() - 2; index++) {
-			double localFittness = Filter.smoothing(diffChannel.getSample(index));
-			if (localFittness > treshold) {
-				samples[index] = 1;
-			} else {
-				samples[index] = 0;
-			}
+	public static Channel applyFilterToChannel(final Channel channel) {
+		final double[] samples = channel.getSamples();
+		double[] filteredSamples = new double[channel.length()];
+		for (int i = 0; i < samples.length; i++) {
+			filteredSamples[i] = samples[i];
 		}
-		return new Channel(name, frequency, samples);
+		filteredSamples = Filter.calculateFilteredArrayFrom(filteredSamples);
+		return new Channel(channel.getName(), channel.getFrequency(), filteredSamples);
 	}
 
+	public static Channel inflateChannelValues(final Channel channel) {
+		final double[] samples = channel.getSamples();
+		double[] inflatedSamples = new double[samples.length];
+		for (int i = 0; i < samples.length; i++) {
+			inflatedSamples[i] = Math.signum(samples[i]) * samples[i] * samples[i];
+		}
+		return new Channel(channel.getName(), channel.getFrequency(), inflatedSamples);
+	}
+
+	public static Channel impulsify(final Channel channel) {
+		String name = channel.getName();
+		int frequency = channel.getFrequency();
+		double[] impulseSamples = new double[channel.length()];
+		for (int i = 0; i < channel.length(); i++) {
+			boolean isImpulse = channel.getAvg() < channel.getSample(i);
+			impulseSamples[i] = isImpulse ? 1 : 0;
+
+		}
+		return new Channel(name, frequency, impulseSamples);
+	}
 }

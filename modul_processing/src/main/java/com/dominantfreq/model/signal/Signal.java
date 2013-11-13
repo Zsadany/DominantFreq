@@ -56,12 +56,12 @@ public abstract class Signal {
 	}
 
 	public double getAvg() {
-		if (average == Double.NaN) {
+//		if (average == Double.NaN) {
 			average = 0;
 			for (int i = 0; i < length(); i++)
 				average += samples[i];
 			average /= samples.length;
-		}
+//		}
 		return average;
 	}
 

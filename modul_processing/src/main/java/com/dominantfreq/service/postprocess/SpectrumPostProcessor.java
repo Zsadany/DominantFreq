@@ -23,6 +23,8 @@ public class SpectrumPostProcessor extends CallableTransformation<Spectrum, Real
 			for (int i = 0; i < Settings.getSpectrumSmoothing(); i++) {
 				realSpectrum = SpectrumTool.applyFilterToSpectrum(realSpectrum);
 				realSpectrum = SpectrumTool.inflateSpectrumValues(realSpectrum);
+				realSpectrum = SpectrumTool.applyFilterToSpectrum(realSpectrum);
+				realSpectrum = SpectrumTool.inflateSpectrumValues(realSpectrum);
 			}
 		}
 		realSpectrum.normalize();

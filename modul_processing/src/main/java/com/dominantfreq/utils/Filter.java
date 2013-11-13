@@ -52,4 +52,16 @@ public class Filter {
 		hamming /= windowSum;
 		return hamming;
 	}
+
+	public static double[] calculateFilteredArrayFrom(double[] array) {
+		double[] result = new double[array.length];
+		result[0] = 0;
+		result[1] = 0;
+		result[array.length - 1] = 0;
+		result[array.length - 2] = 0;
+		for (int index = 2; index < array.length - 2; index++) {
+			result[index] = Filter.smoothing(array[index - 2], array[index - 1], array[index], array[index + 1], array[index + 2]);
+		}
+		return result;
+	}
 }

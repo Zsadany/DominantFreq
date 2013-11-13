@@ -11,7 +11,7 @@ import com.dominantfreq.model.dataaccess.EcgBuffer;
  * 
  * @author Fulop Zsadany
  */
-public class LocalMain {
+public class Main {
 
 	/**
 	 * @param args
