@@ -16,7 +16,7 @@ public class EcgAnalyser implements Transformation<RealEcgSpectrum, EcgAnalysis>
 	
 	private EcgAnalyser() {/* prevents initialization */}
 
-	public static EcgAnalyser getAnalyser() {
+	public static EcgAnalyser getInstance() {
 		return INSTANCE;
 	}
 	

@@ -27,10 +27,10 @@ public class DisplayConfiguration extends Thread {
 	 * The mode of the current DM thread
 	 */
 	private DisplayMode displayMode;
-	private static final EcgChannelPreProcessor PREPROCESSOR = EcgChannelPreProcessor.getPreProcessor();
-	private static final EcgFourier FOURIER = EcgFourier.getFourier();
-	private static final EcgSpectrumPostProcessor POSTPROCESSOR = EcgSpectrumPostProcessor.getPostProcessor();
-	private static final EcgAnalyser ANALYSER = EcgAnalyser.getAnalyser();
+	private static final EcgChannelPreProcessor PREPROCESSOR = EcgChannelPreProcessor.getInstance();
+	private static final EcgFourier FOURIER = EcgFourier.getInstance();
+	private static final EcgSpectrumPostProcessor POSTPROCESSOR = EcgSpectrumPostProcessor.getInstance();
+	private static final EcgAnalyser ANALYSER = EcgAnalyser.getInstance();
 
 	public DisplayConfiguration(DisplayMode mode) {
 		displayMode = mode;
@@ -60,6 +60,9 @@ public class DisplayConfiguration extends Thread {
 
 	private void drawEcgOnly() throws IOException {
 		EcgBuffer.loadSelectedEcg();
+		Ecg selectedEcg = EcgBuffer.getSelectedEcg();
+		selectedEcg.normalizeChannels();
+		ResultBuffer.setEcgToDraw(selectedEcg);
 		DisplayContentSetter.initEcgOnlyTabs();
 		Settings.setLoading(false);
 	}

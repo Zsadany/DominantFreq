@@ -17,7 +17,7 @@ public class EcgSpectrumPostProcessor implements Transformation<EcgSpectrum, Rea
 
 	private EcgSpectrumPostProcessor() {/* prevents initialization */}
 
-	public static EcgSpectrumPostProcessor getPostProcessor() {
+	public static EcgSpectrumPostProcessor getInstance() {
 		return INSTANCE;
 	}
 

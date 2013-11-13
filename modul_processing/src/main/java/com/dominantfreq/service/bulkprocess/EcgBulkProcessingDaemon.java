@@ -26,10 +26,10 @@ import com.dominantfreq.service.preprocess.EcgChannelPreProcessor;
 public class EcgBulkProcessingDaemon extends Thread {
 	private static final EcgBulkProcessingDaemon INSTANCE = new EcgBulkProcessingDaemon();
 	private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
-	private static final EcgChannelPreProcessor PREPROCESSOR = EcgChannelPreProcessor.getPreProcessor();
-	private static final EcgFourier FOURIER = EcgFourier.getFourier();
-	private static final EcgSpectrumPostProcessor POSTPROCESSOR = EcgSpectrumPostProcessor.getPostProcessor();
-	private static final EcgAnalyser ANALYSER = EcgAnalyser.getAnalyser();
+	private static final EcgChannelPreProcessor PREPROCESSOR = EcgChannelPreProcessor.getInstance();
+	private static final EcgFourier FOURIER = EcgFourier.getInstance();
+	private static final EcgSpectrumPostProcessor POSTPROCESSOR = EcgSpectrumPostProcessor.getInstance();
+	private static final EcgAnalyser ANALYSER = EcgAnalyser.getInstance();
 	private static final EcgProcessingRequest TERMINATION_REQUEST = new EcgProcessingRequest(new File(UUID.randomUUID().toString()), UUID.randomUUID().toString());
 	private static final int SLEEPYNESS = 500;
 	private static final int ECG_LIMIT = 3;

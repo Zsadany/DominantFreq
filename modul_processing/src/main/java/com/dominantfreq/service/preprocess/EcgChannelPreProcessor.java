@@ -14,7 +14,7 @@ public class EcgChannelPreProcessor implements Transformation<Ecg, Ecg> {
 
 	private EcgChannelPreProcessor() {/* prevents instantiation */}
 
-	public static EcgChannelPreProcessor getPreProcessor() {
+	public static EcgChannelPreProcessor getInstance() {
 		return INSTANCE;
 	}
 

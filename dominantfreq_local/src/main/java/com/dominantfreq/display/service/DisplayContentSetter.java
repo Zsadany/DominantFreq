@@ -95,7 +95,7 @@ public class DisplayContentSetter {
 	public static void initEcgOnlyTabs() throws IOException {
 		int selectedTab = DisplayController.getTabbedPane().getSelectedIndex();
 		DisplayController.setTabbedPane(new JTabbedPane());
-		Ecg ecg = EcgBuffer.getSelectedEcg();
+		Ecg ecg = ResultBuffer.getEcgToDraw();
 		for (Channel channel : ecg.getChannels()) {
 			JPanel tab = new JPanel();
 			tab.setLayout(new BoxLayout(tab, BoxLayout.PAGE_AXIS));

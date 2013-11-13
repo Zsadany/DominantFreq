@@ -11,7 +11,7 @@ public class EcgFourier implements Transformation<Ecg, EcgSpectrum> {
 
 	private EcgFourier() {/* prevents initialization */}
 
-	public static EcgFourier getFourier() {
+	public static EcgFourier getInstance() {
 		return INSTANCE;
 	}
 
