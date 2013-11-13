@@ -1,22 +1,22 @@
-package com.dominantfreq.display.model.elements;
+package com.dominantfreq.display.model.sliders;
 
-import javax.swing.JSpinner;
+import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.dominantfreq.model.Settings;
 
-public class FilterSpinner extends JSpinner implements ChangeListener {
-	private static final long serialVersionUID = -813590243931470392L;
+public class SpectrumFlattener extends JSlider implements ChangeListener {
+	private static final long serialVersionUID = -5752155027720123815L;
 	private static final int MAX = 3;
 
-	public FilterSpinner() {
+	public SpectrumFlattener() {
 		addChangeListener(this);
 	}
 
 	@Override
 	public void stateChanged(ChangeEvent ch) {
-		int value = (int) getValue();
+		int value = getValue();
 		if (value >= 0 && value < MAX) {
 			Settings.setSpectrumSmoothing(value);
 		} else if (value >= MAX) {
@@ -26,4 +26,5 @@ public class FilterSpinner extends JSpinner implements ChangeListener {
 			setValue(0);
 		}
 	}
+
 }

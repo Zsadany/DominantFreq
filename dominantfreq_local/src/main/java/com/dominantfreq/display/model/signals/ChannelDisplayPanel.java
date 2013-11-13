@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 
-import com.dominantfreq.display.controller.DisplayController;
+import com.dominantfreq.display.Display;
 import com.dominantfreq.model.Settings;
 import com.dominantfreq.model.signal.Channel;
 
@@ -22,8 +22,8 @@ public class ChannelDisplayPanel extends SignalDisplay {
 		addMouseMotionListener(this);
 		xUnit = " sec";
 		name = "ECG channel";
-		height = DisplayController.getHeight();
-		width = DisplayController.getWidth();
+		height = Display.getHeight();
+		width = Display.getWidth();
 	}
 
 	public ChannelDisplayPanel(Channel channel) {

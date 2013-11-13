@@ -1,11 +1,11 @@
-package com.dominantfreq.display.model.elements;
+package com.dominantfreq.display.model.buttons;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import com.dominantfreq.display.controller.DisplayController;
+import com.dominantfreq.display.Display;
 import com.dominantfreq.model.Settings;
 
 public class DrawButton extends JButton implements ActionListener {
@@ -21,13 +21,13 @@ public class DrawButton extends JButton implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		Settings.setLoading(true);
-		DisplayController.refresh();
+		Display.refresh();
 		if (ecgOnly) {
 			Settings.setEcgOnly(true);
-			DisplayController.ecgOnlyDisplay();
+			Display.ecgOnlyDisplay();
 		} else {
 			Settings.setEcgOnly(false);
-			DisplayController.processedEcgDisplay();
+			Display.processedEcgDisplay();
 		}
 	}
 

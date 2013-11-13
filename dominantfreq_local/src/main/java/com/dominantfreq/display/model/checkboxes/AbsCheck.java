@@ -1,4 +1,4 @@
-package com.dominantfreq.display.model.elements;
+package com.dominantfreq.display.model.checkboxes;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

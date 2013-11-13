@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 
-import com.dominantfreq.display.controller.DisplayController;
+import com.dominantfreq.display.Display;
 import com.dominantfreq.model.Settings;
 import com.dominantfreq.model.data.SpectrumAnalysis;
 import com.dominantfreq.model.signal.RealSpectrum;
@@ -27,8 +27,8 @@ public class SpectrumDisplayPanel extends SignalDisplay {
 
 	public SpectrumDisplayPanel(RealSpectrum spectrum, SpectrumAnalysis analysis) {
 		this();
-		height = DisplayController.getHeight();
-		width = DisplayController.getWidth();
+		height = Display.getHeight();
+		width = Display.getWidth();
 		xUnit = " Hz";
 		hDivBy = 40 / Settings.getMaxFrequency();
 		name = "Spectrum";

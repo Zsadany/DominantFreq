@@ -11,7 +11,7 @@ import javafx.embed.swing.JFXPanel;
 
 import javax.swing.event.MouseInputListener;
 
-import com.dominantfreq.display.controller.DisplayController;
+import com.dominantfreq.display.Display;
 
 /**
  * Displays ECG channels and spectrums in an orthogonal system.
@@ -72,7 +72,7 @@ public abstract class SignalDisplay extends JFXPanel implements MouseInputListen
 	public void mouseDragged(MouseEvent event) {
 		mouseX = (double) event.getX();
 		mouseY = (double) event.getY();
-		DisplayController.getContentPane().repaint();
+		Display.getContentPane().repaint();
 	}
 
 	@Override
@@ -80,13 +80,13 @@ public abstract class SignalDisplay extends JFXPanel implements MouseInputListen
 		showMouseCoordinates = true;
 		mouseX = (double) event.getX();
 		mouseY = (double) event.getY();
-		DisplayController.getContentPane().repaint();
+		Display.getContentPane().repaint();
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent event) {
 		showMouseCoordinates = false;
-		DisplayController.getContentPane().repaint();
+		Display.getContentPane().repaint();
 
 	}
 

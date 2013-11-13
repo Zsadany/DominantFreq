@@ -1,10 +1,10 @@
-package com.dominantfreq.display.model.elements;
+package com.dominantfreq.display.model.sliders;
 
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.dominantfreq.display.controller.DisplayController;
+import com.dominantfreq.display.Display;
 import com.dominantfreq.model.Settings;
 
 public class SettingsSlider extends JSlider implements ChangeListener {
@@ -42,7 +42,7 @@ public class SettingsSlider extends JSlider implements ChangeListener {
 			if (mode == FILTER_WIDTH) {
 				Settings.setSamplingFilterWidth((int) this.getValue());
 			}
-			DisplayController.refresh();
+			Display.refresh();
 		}
 
 	}

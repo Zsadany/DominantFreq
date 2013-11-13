@@ -1,9 +1,8 @@
-package com.dominantfreq.display.model.elements;
+package com.dominantfreq.display.model.comboboxes;
 
 import javax.swing.JComboBox;
 
-import com.dominantfreq.display.model.DisplayMode;
-import com.dominantfreq.display.service.DisplayConfiguration;
+import com.dominantfreq.display.Display;
 import com.dominantfreq.model.Settings;
 import com.dominantfreq.model.dataaccess.EcgBuffer;
 import com.dominantfreq.service.windowfunction.Window;
@@ -13,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class SelectorBox extends JComboBox<Object> implements ActionListener {
-
 	private static final long serialVersionUID = 7437322222497566334L;
 
 	int func;
@@ -52,16 +50,13 @@ public class SelectorBox extends JComboBox<Object> implements ActionListener {
 		if (this.func == 0) {
 			Object selected = getSelectedItem();
 			int i = 0;
-			for (; i < getItemCount(); i++) {
+			for (; i < getItemCount(); i++)
 				if (selected.toString().equals(getItemAt(i)))
 					break;
-			}
 			EcgBuffer.selectedECG.set(i);
-			new DisplayConfiguration(DisplayMode.PRELOAD_ECG);
+			Display.preLoadECG();
 
-		}
-
-		else if (this.func == 1) {
+		} else if (this.func == 1) {
 			Object selected = getSelectedItem();
 			Settings.setWindowFunction(Window.valueOf(((String) selected).toUpperCase()));
 		}

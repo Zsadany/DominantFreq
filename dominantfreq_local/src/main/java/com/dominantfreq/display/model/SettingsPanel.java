@@ -11,11 +11,11 @@ import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.JSeparator;
 
-import com.dominantfreq.display.model.elements.AbsCheck;
-import com.dominantfreq.display.model.elements.DrawButton;
-import com.dominantfreq.display.model.elements.FilterSpinner;
-import com.dominantfreq.display.model.elements.SelectorBox;
-import com.dominantfreq.display.model.elements.SettingsSlider;
+import com.dominantfreq.display.model.buttons.DrawButton;
+import com.dominantfreq.display.model.checkboxes.AbsCheck;
+import com.dominantfreq.display.model.comboboxes.SelectorBox;
+import com.dominantfreq.display.model.sliders.SettingsSlider;
+import com.dominantfreq.display.model.spinners.FilterSpinner;
 import com.dominantfreq.model.Settings;
 import com.dominantfreq.model.dataaccess.EcgBuffer;
 import com.dominantfreq.service.windowfunction.Window;

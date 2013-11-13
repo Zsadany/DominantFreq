@@ -1,8 +1,8 @@
-package com.dominantfreq.display.service;
+package com.dominantfreq.display.configuration;
 
 import java.io.IOException;
 
-import com.dominantfreq.display.model.DisplayMode;
+import com.dominantfreq.display.controller.DisplayControl;
 import com.dominantfreq.model.Settings;
 import com.dominantfreq.model.data.Ecg;
 import com.dominantfreq.model.data.EcgAnalysis;
@@ -15,66 +15,30 @@ import com.dominantfreq.service.fourier.EcgFourier;
 import com.dominantfreq.service.postprocess.EcgSpectrumPostProcessor;
 import com.dominantfreq.service.preprocess.EcgChannelPreProcessor;
 
-/**
- * Class managing the display , run on a separate thread to avoid
- * unresponsiveness during calculations
- * 
- * @author Fulop Zsadany
- */
-public class DisplayConfiguration extends Thread {
+class EcgProcessorConfig extends ConfigSkeleton {
+	private static final Config INSTANCE = new EcgProcessorConfig();
 
-	/**
-	 * The mode of the current DM thread
-	 */
-	private DisplayMode displayMode;
 	private static final EcgChannelPreProcessor PREPROCESSOR = EcgChannelPreProcessor.getInstance();
 	private static final EcgFourier FOURIER = EcgFourier.getInstance();
 	private static final EcgSpectrumPostProcessor POSTPROCESSOR = EcgSpectrumPostProcessor.getInstance();
 	private static final EcgAnalyser ANALYSER = EcgAnalyser.getInstance();
 
-	public DisplayConfiguration(DisplayMode mode) {
-		displayMode = mode;
+	private EcgProcessorConfig() {// Singleton
 	}
 
-	public synchronized void run() {
-		try {
-			DisplayContentSetter.fitWindowToScreen();
-			switch (displayMode) {
-			case FULL_ECG_VIEW:
-				drawEcgOnly();
-				break;
-			case NEW_PROCESSING_AND_DISPLAY:
-				processConfiguration();
-				break;
-			case PRELOAD_ECG:
-				EcgBuffer.loadSelectedEcg();
-				break;
-			case REPAINT:
-				break;
-			}
-			DisplayContentSetter.setDisplay();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public static Config getIntance() {
+		return INSTANCE;
 	}
 
-	private void drawEcgOnly() throws IOException {
-		EcgBuffer.loadSelectedEcg();
-		Ecg selectedEcg = EcgBuffer.getSelectedEcg();
-		selectedEcg.normalizeChannels();
-		ResultBuffer.setEcgToDraw(selectedEcg);
-		DisplayContentSetter.initEcgOnlyTabs();
-		Settings.setLoading(false);
-	}
-
-	private void processConfiguration() throws IOException {
+	@Override
+	protected void executeConfig() throws IOException {
 		EcgBuffer.loadSelectedEcg();
 		Ecg ecg = PREPROCESSOR.transform(EcgBuffer.getSelectedEcg());
 		EcgSpectrum ecgSpectrum = FOURIER.transform(ecg);
 		RealEcgSpectrum realEcgSpectrum = POSTPROCESSOR.transform(ecgSpectrum);
 		EcgAnalysis analysis = ANALYSER.transform(realEcgSpectrum);
 		storeResults(ecg, realEcgSpectrum, analysis);
-		DisplayContentSetter.initTabs();
+		DisplayControl.initTabs();
 		Settings.setLoading(false);
 	}
 
@@ -83,4 +47,5 @@ public class DisplayConfiguration extends Thread {
 		ResultBuffer.setEcgSpectrum(realEcgSpectrum);
 		ResultBuffer.setEcgAnalysis(analysis);
 	}
+
 }
