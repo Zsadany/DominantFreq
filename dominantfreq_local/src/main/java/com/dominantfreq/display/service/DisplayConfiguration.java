@@ -61,7 +61,7 @@ public class DisplayConfiguration extends Thread {
 	private void drawEcgOnly() throws IOException {
 		EcgBuffer.loadSelectedEcg();
 		DisplayContentSetter.initEcgOnlyTabs();
-		Settings.loading = false;
+		Settings.setLoading(false);
 	}
 
 	private void processConfiguration() throws IOException {
@@ -72,7 +72,7 @@ public class DisplayConfiguration extends Thread {
 		EcgAnalysis analysis = ANALYSER.transform(realEcgSpectrum);
 		storeResults(ecg, realEcgSpectrum, analysis);
 		DisplayContentSetter.initTabs();
-		Settings.loading = false;
+		Settings.setLoading(false);
 	}
 
 	private void storeResults(Ecg ecg, RealEcgSpectrum realEcgSpectrum, EcgAnalysis analysis) {

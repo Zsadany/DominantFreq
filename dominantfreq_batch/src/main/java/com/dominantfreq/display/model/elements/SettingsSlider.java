@@ -41,7 +41,7 @@ public class SettingsSlider extends Slider {
 					Settings.setMaxFrequency(newValue.intValue());
 				}
 				if (mode == FILTER_WIDTH) {
-					Settings.samplingFilterWidth = newValue.intValue();
+					Settings.setSamplingFilterWidth(newValue.intValue());
 				}
 				ObservableList<Node> children = getParent().getChildrenUnmodifiable();
 				for (Node child : children) {

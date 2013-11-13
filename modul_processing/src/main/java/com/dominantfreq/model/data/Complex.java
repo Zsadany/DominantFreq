@@ -23,27 +23,27 @@ public final class Complex {
 		im = c.im;
 	}
 
-	public Complex add(final Complex c) {
+	public final Complex plus(final Complex c) {
 		return new Complex(c.re + re, c.im + im);
 	}
 
-	public Complex add(final double real) {
+	public final Complex plus(final double real) {
 		return new Complex(re + real, im);
 	}
 
-	public Complex sub(final Complex c) {
+	public final Complex minus(final Complex c) {
 		return new Complex(re - c.re, im - c.im);
 	}
 
-	public Complex mul(final Complex c) {
+	public final Complex times(final Complex c) {
 		return new Complex(re * c.re - im * c.im, re * c.im + c.re * im);
 	}
 
-	public Complex mul(final double real) {
+	public final Complex times(final double real) {
 		return new Complex(re * real, im * real);
 	}
 
-	public Complex div(final Complex c) {
+	public final Complex div(final Complex c) {
 		double denom = c.re * c.re + c.im * c.im;
 		if (denom == 0)
 			return new Complex(Double.NaN, Double.NaN);
@@ -51,7 +51,7 @@ public final class Complex {
 			return new Complex((re * c.re + im * c.im) / denom, (im * c.re - re * c.im) / denom);
 	}
 
-	public Complex div(final int divider) {
+	public final Complex div(final int divider) {
 		return new Complex(re / divider, im / divider);
 	}
 
@@ -59,20 +59,13 @@ public final class Complex {
 		return Math.sqrt(re * re + im * im);
 	}
 
-	public static Complex exp(final Complex c) {
+	public static final Complex exp(final Complex c) {
 		return c.exp();
 	}
 
-	private Complex exp() {
+	private final Complex exp() {
 		double r = Math.exp(this.re);
 		return new Complex(r * Math.cos(this.im), r * Math.sin(this.im));
 	}
 
-	public double getReal() {
-		return re;
-	}
-
-	public double getImaginary() {
-		return im;
-	}
 }

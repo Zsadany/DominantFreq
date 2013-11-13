@@ -13,7 +13,7 @@ public class AbsCheck extends CheckBox {
 		this.selectedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
-				Settings.abs = !Settings.abs;
+				Settings.setAbs(!Settings.getAbs());
 			}
 		});
 	}

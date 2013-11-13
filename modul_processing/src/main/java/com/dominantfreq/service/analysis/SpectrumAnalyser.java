@@ -18,7 +18,7 @@ public class SpectrumAnalyser extends CallableTransformation<RealSpectrum, Spect
 
 	@Override
 	public SpectrumAnalysis transform(RealSpectrum spectrum) {
-		filterWidth = Settings.samplingFilterWidth * spectrum.length() / Settings.getMaxFrequency();
+		filterWidth = Settings.getSamplingFilterWidth() * spectrum.length() / Settings.getMaxFrequency();
 		filterLowIndex = (filterWidth + 1) / 2;
 		filterHighIndex = spectrum.length() - filterLowIndex;
 		int dominantFrequencyIndex = 1;

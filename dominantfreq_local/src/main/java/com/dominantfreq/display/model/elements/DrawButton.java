@@ -20,13 +20,13 @@ public class DrawButton extends JButton implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		Settings.loading = true;
+		Settings.setLoading(true);
 		DisplayController.refresh();
 		if (ecgOnly) {
-			Settings.ecgOnly = true;
+			Settings.setEcgOnly(true);
 			DisplayController.ecgOnlyDisplay();
 		} else {
-			Settings.ecgOnly = false;
+			Settings.setEcgOnly(false);
 			DisplayController.processedEcgDisplay();
 		}
 	}

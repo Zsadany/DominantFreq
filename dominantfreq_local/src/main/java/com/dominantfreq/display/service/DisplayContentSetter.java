@@ -36,7 +36,7 @@ public class DisplayContentSetter {
 	}
 
 	private static synchronized void initSettingsPanel() throws IOException {
-		DisplayController.setSettingsPanel(new SettingsPanel(EcgBuffer.getEcgNames(), Settings.loading));
+		DisplayController.setSettingsPanel(new SettingsPanel(EcgBuffer.getEcgNames(), Settings.isLoading()));
 	}
 
 	private static synchronized void cleanDisplay() {

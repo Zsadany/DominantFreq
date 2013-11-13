@@ -17,6 +17,6 @@ public class AbsCheck extends JCheckBox implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		Settings.abs = !Settings.abs;
+		Settings.setAbs(!Settings.getAbs());
 	}
 }

@@ -15,12 +15,12 @@ public class SpectrumPostProcessor extends CallableTransformation<Spectrum, Real
 	@Override
 	public RealSpectrum transform(Spectrum spectrum) {
 		RealSpectrum realSpectrum = SpectrumTool.realSpectrumFrom(spectrum);
-		if (Settings.hzToFlatten > 0.1) {
-			int pointsToFlatten = (int) ((realSpectrum.length() / Settings.maxFrequency) * Settings.hzToFlatten);
+		if (Settings.getHzToFlatten() > 0.1) {
+			int pointsToFlatten = (int) ((realSpectrum.length() / Settings.getMaxFrequency()) * Settings.getHzToFlatten());
 			realSpectrum = SpectrumTool.flattenEarlyPeaks(realSpectrum, pointsToFlatten);
 		}
-		if (Settings.spectrumSmoothing > 0) {
-			for (int i = 0; i < Settings.spectrumSmoothing; i++) {
+		if (Settings.getSpectrumSmoothing() > 0) {
+			for (int i = 0; i < Settings.getSpectrumSmoothing(); i++) {
 				realSpectrum = SpectrumTool.applyFilterToSpectrum(realSpectrum);
 				realSpectrum = SpectrumTool.inflateSpectrumValues(realSpectrum);
 			}

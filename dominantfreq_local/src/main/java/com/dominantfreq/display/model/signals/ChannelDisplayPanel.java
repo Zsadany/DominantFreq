@@ -34,7 +34,7 @@ public class ChannelDisplayPanel extends SignalDisplay {
 		startTime = 0;
 		startingIndex = 0;
 		seconds = channel.length() / channel.getFrequency();
-		if (!Settings.ecgOnly) {
+		if (!Settings.isEcgOnly()) {
 			startTime = Settings.getStartTime();
 			startingIndex = Settings.getStartTime() * channel.getFrequency();
 //			seconds = Settings.getTimeInterval();

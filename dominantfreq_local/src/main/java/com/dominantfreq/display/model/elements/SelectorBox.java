@@ -63,7 +63,7 @@ public class SelectorBox extends JComboBox<Object> implements ActionListener {
 
 		else if (this.func == 1) {
 			Object selected = getSelectedItem();
-			Settings.windowFunction = Window.valueOf(((String) selected).toUpperCase());
+			Settings.setWindowFunction(Window.valueOf(((String) selected).toUpperCase()));
 		}
 
 	}

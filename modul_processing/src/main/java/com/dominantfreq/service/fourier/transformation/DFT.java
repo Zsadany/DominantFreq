@@ -19,14 +19,14 @@ public class DFT extends CallableTransformation<Channel, Spectrum> {
 		int fN = (Settings.getMaxFrequency() * N) / f;
 		Spectrum spectrum = new Spectrum(channel.getName(), fN);
 		spectrum.setSample(0, Complex.ZERO);
-		Complex Minus2PiIPerN = Complex.I.mul((2.0 * Math.PI) / N).mul(-1);
+		final Complex Minus2PiIPerN = Complex.I.times((-1 * 2.0 * Math.PI) / N);
 		for (int k = 0; k < fN; k++) {
 			spectrum.setSample(k, Complex.ZERO);
 			for (int n = 0; n < N; n++) {
-				int kn = k * n;
-				Complex e = Complex.exp(Minus2PiIPerN.mul(kn));
+				int nk = k * n;
+				Complex e = Complex.exp(Minus2PiIPerN.times(nk));
 				Double xn = channel.getSample(n);
-				spectrum.addToSample(k, e.mul(xn));
+				spectrum.addToSample(k, e.times(xn));
 			}
 		}
 		return spectrum;

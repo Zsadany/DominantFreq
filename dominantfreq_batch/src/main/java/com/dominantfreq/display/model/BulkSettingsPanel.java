@@ -79,7 +79,7 @@ public class BulkSettingsPanel extends VBox {
 		Label label = new Label("Spectrum Sampling Width [Hz]");
 		label.setStyle(LABEL_STYLE);
 		sliderBox.getChildren().add(label);
-		filterWidth = new SettingsSlider(SettingsSlider.FILTER_WIDTH, 0, 5, Settings.samplingFilterWidth);
+		filterWidth = new SettingsSlider(SettingsSlider.FILTER_WIDTH, 0, 5, Settings.getSamplingFilterWidth());
 		filterWidth.setDisable(loading);
 		sliderBox.getChildren().add(filterWidth);
 		add(sliderBox);
@@ -110,7 +110,7 @@ public class BulkSettingsPanel extends VBox {
 		windowSelectorBox.getChildren().add(label);
 		label.setStyle(LABEL_STYLE);
 		windowFunctionSelector = new WindowFunctionSelector();
-		windowFunctionSelector.setValue(Settings.windowFunction);
+		windowFunctionSelector.setValue(Settings.getWindowFunction());
 		windowFunctionSelector.setDisable(loading);
 		windowSelectorBox.getChildren().add(windowFunctionSelector);
 		add(windowSelectorBox);
@@ -122,7 +122,7 @@ public class BulkSettingsPanel extends VBox {
 		label.setStyle(LABEL_STYLE);
 		checkBoxBox.getChildren().add(label);
 		FilterBox fs = new FilterBox();
-		fs.setValue(Settings.spectrumSmoothing);
+		fs.setValue(Settings.getSpectrumSmoothing());
 		fs.setDisable(loading);
 		checkBoxBox.getChildren().add(fs);
 		add(checkBoxBox);
@@ -134,7 +134,7 @@ public class BulkSettingsPanel extends VBox {
 		label.setStyle(LABEL_STYLE);
 		checkBoxBox.getChildren().add(label);
 		AbsCheck check = new AbsCheck();
-		check.setSelected(Settings.abs);
+		check.setSelected(Settings.getAbs());
 		check.setDisable(loading);
 		checkBoxBox.getChildren().add(check);
 		add(checkBoxBox);

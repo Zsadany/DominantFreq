@@ -50,7 +50,7 @@ public class Spectrum {
 	}
 
 	public void addToSample(final int index, final Complex value) {
-		samples[index] = samples[index].add(value);
+		samples[index] = samples[index].plus(value);
 	}
 
 	public void divideSample(final int index, final int divider) {

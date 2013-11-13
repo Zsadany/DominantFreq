@@ -17,12 +17,12 @@ public class ChannelPreProcessor extends CallableTransformation<Channel, Channel
 		Integer startTime = Settings.getStartTime();
 		Integer endTime = startTime + Settings.getTimeInterval();
 		Channel transformedChannel = ChannelTool.extractTimeIntervalFromChannel(channel, startTime, endTime);
-		Window windowFunction = Settings.windowFunction;
+		Window windowFunction = Settings.getWindowFunction();
 		if (windowFunction != Window.NONE) {
 			transformedChannel.normalize();
 			transformedChannel = ChannelTool.applyWindowToChannel(transformedChannel, windowFunction);
 		}
-		if (Settings.abs == true) {
+		if (Settings.getAbs() == true) {
 			transformedChannel = ChannelTool.absChannel(transformedChannel);
 		}
 		transformedChannel.normalize();

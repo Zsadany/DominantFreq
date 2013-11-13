@@ -3,7 +3,7 @@ package com.dominantfreq.display.model;
 import java.io.File;
 
 import com.dominantfreq.display.model.handlers.ButtonHandlers;
-import com.dominantfreq.display.model.styles.Style;
+import com.dominantfreq.display.model.styles.ButtonStyles;
 import com.dominantfreq.model.data.EcgAnalysis;
 import com.dominantfreq.model.dataaccess.EcgInfo;
 import com.dominantfreq.service.bulkprocess.EcgBulkProcessingDaemon;
@@ -116,7 +116,7 @@ public class EcgItem extends TitledPane {
 	private Button createProcessButton(String name) {
 		processButton = new Button(name);
 		processButton.setAlignment(Pos.CENTER_LEFT);
-		processButton.setStyle(Style.PROCESS_BUTTON_STYLE.toString());
+		processButton.setStyle(ButtonStyles.PROCESS_BUTTON_STYLE.toString());
 		processButton.setEffect(new DropShadow());
 		processButton.setOpacity(0.7);
 		processButton.setOnMouseEntered(ButtonHandlers.buttonMouseEnteredHandler);
@@ -127,7 +127,7 @@ public class EcgItem extends TitledPane {
 
 	private Button createClearButton(String name) {
 		clearButton = new Button(name);
-		clearButton.setStyle(Style.CLOSE_BUTTON_STYLE.toString());
+		clearButton.setStyle(ButtonStyles.CLOSE_BUTTON_STYLE.toString());
 		clearButton.setEffect(new DropShadow());
 		clearButton.setAlignment(Pos.CENTER_RIGHT);
 		clearButton.setOpacity(0.7);

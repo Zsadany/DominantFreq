@@ -15,7 +15,7 @@ public class WindowFunctionSelector extends ComboBox<Window> {
 		getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Window>() {
 			@Override
 			public void changed(ObservableValue<? extends Window> value, Window oldValue, Window newValue) {
-				Settings.windowFunction = newValue;
+				Settings.setWindowFunction(newValue);
 			}
 		});
 	}

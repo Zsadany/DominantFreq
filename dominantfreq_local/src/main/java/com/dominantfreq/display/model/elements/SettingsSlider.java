@@ -40,7 +40,7 @@ public class SettingsSlider extends JSlider implements ChangeListener {
 				Settings.setMaxFrequency((int) this.getValue());
 			}
 			if (mode == FILTER_WIDTH) {
-				Settings.samplingFilterWidth = (int) this.getValue();
+				Settings.setSamplingFilterWidth((int) this.getValue());
 			}
 			DisplayController.refresh();
 		}

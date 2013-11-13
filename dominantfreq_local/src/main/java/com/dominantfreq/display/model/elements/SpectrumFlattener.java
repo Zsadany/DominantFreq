@@ -18,9 +18,9 @@ public class SpectrumFlattener extends JSlider implements ChangeListener {
 	public void stateChanged(ChangeEvent ch) {
 		int value = getValue();
 		if (value >= 0 && value < MAX) {
-			Settings.spectrumSmoothing = value;
+			Settings.setSpectrumSmoothing(value);
 		} else if (value >= MAX) {
-			Settings.spectrumSmoothing = MAX;
+			Settings.setSpectrumSmoothing(MAX);
 			setValue(MAX);
 		} else {
 			setValue(0);

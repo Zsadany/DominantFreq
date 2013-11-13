@@ -20,7 +20,7 @@ public class SpectrumFlattener extends Slider {
 		valueProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> value, Number oldValue, Number newValue) {
-				Settings.hzToFlatten = newValue.doubleValue();
+				Settings.setHzToFlatten(newValue.doubleValue());
 			}
 		});
 	}

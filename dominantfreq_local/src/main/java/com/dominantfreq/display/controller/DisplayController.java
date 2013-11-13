@@ -36,7 +36,7 @@ public class DisplayController {
 		if (DisplayController.frame == null)
 			DisplayController.frame = new JFrame();
 		if (DisplayController.settingsPanel == null)
-			DisplayController.settingsPanel = new SettingsPanel(EcgBuffer.getEcgNames(), Settings.loading);
+			DisplayController.settingsPanel = new SettingsPanel(EcgBuffer.getEcgNames(), Settings.isLoading());
 		if (DisplayController.tabbedPane == null)
 			DisplayController.tabbedPane = new JTabbedPane();
 		if (DisplayController.contentPane == null)

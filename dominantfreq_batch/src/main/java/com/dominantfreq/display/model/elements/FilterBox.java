@@ -15,7 +15,7 @@ public class FilterBox extends ComboBox<Integer> {
 		getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
 			@Override
 			public void changed(ObservableValue<? extends Integer> value, Integer oldValue, Integer newValue) {
-				Settings.spectrumSmoothing = newValue;
+				Settings.setSpectrumSmoothing(newValue);
 			}
 		});
 	}

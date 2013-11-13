@@ -118,7 +118,7 @@ public class SettingsPanel extends JFXPanel {
 		constraints.gridy = index;
 		this.add(new JLabel("Spectrum Sampling Width [Hz]"), constraints);
 		index++;
-		filterWidth = new SettingsSlider("Spectrum Sampling Filter Width", SettingsSlider.FILTER_WIDTH, 0, 5, Settings.samplingFilterWidth);
+		filterWidth = new SettingsSlider("Spectrum Sampling Filter Width", SettingsSlider.FILTER_WIDTH, 0, 5, Settings.getSamplingFilterWidth());
 		filterWidth.setEnabled(!loading);
 		constraints.gridx = 0;
 		constraints.gridy = index;
@@ -174,7 +174,7 @@ public class SettingsPanel extends JFXPanel {
 		constraints.gridwidth = 1;
 		this.add(label, constraints);
 		windowFunctionSelector = new SelectorBox(Window.list());
-		windowFunctionSelector.setSelectedIndex(Settings.windowFunction);
+		windowFunctionSelector.setSelectedIndex(Settings.getWindowFunction());
 		windowFunctionSelector.setFunction(1);
 		windowFunctionSelector.addActionListener(windowFunctionSelector);
 		windowFunctionSelector.setEnabled(!loading);
@@ -194,7 +194,7 @@ public class SettingsPanel extends JFXPanel {
 		constraints.gridwidth = 1;
 		this.add(label, constraints);
 		FilterSpinner fs = new FilterSpinner();
-		fs.setValue(Settings.spectrumSmoothing);
+		fs.setValue(Settings.getSpectrumSmoothing());
 		fs.setEnabled(!loading);
 		constraints.gridx = 1;
 		constraints.gridy = index;
@@ -215,7 +215,7 @@ public class SettingsPanel extends JFXPanel {
 		constraints.gridwidth = 1;
 		this.add(label, constraints);
 		AbsCheck af = new AbsCheck();
-		af.setSelected(Settings.abs);
+		af.setSelected(Settings.getAbs());
 		af.addActionListener(af);
 		af.setEnabled(!loading);
 		constraints.gridx = 1;
