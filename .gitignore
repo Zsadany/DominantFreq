@@ -13,6 +13,7 @@ tmp/
 *~.nib
 *.inf
 *.txt
+*.class
 local.properties
 .classpath
 .settings/
