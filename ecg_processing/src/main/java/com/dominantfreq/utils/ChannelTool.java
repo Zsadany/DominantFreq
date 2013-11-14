@@ -15,15 +15,15 @@ public class ChannelTool {
 		int frequency = channel.getFrequency();
 		int numberOfSamples = channel.length();
 		double[] samples = new double[numberOfSamples];
-		WindowFunction windowFunc = WindowFunctionFactory.getInstanceOfType(window);
+		WindowFunction windowFunction = WindowFunctionFactory.getInstanceOfType(window);
 		for (int index = 0; index < channel.length(); index++) {
-			samples[index] = applyWindowToValue(channel, windowFunc, index);
+			samples[index] = applyWindowToValue(channel, windowFunction, index);
 		}
 		return new Channel(name, frequency, samples);
 	}
 
-	private static double applyWindowToValue(final Channel channel, final WindowFunction windowFunc, final int index) {
-		return channel.getSample(index) * windowFunc.windowValueAt(index, channel.length());
+	private static double applyWindowToValue(final Channel channel, final WindowFunction windowFunction, final int index) {
+		return channel.getSample(index) * windowFunction.windowValueAt(index, channel.length());
 	}
 
 	public static Channel extractTimeIntervalFromChannel(final Channel channel, final int fromTime, final int toTime) {
@@ -77,10 +77,62 @@ public class ChannelTool {
 		int frequency = channel.getFrequency();
 		double[] impulseSamples = new double[channel.length()];
 		for (int i = 0; i < channel.length(); i++) {
-			boolean isImpulse = channel.getAvg() < channel.getSample(i);
+			boolean isImpulse = channel.calcAvg() / 10 < channel.getSample(i);
 			impulseSamples[i] = isImpulse ? 1 : 0;
-
 		}
 		return new Channel(name, frequency, impulseSamples);
+	}
+
+	public static Channel narrowImpulsesToOneSample(final Channel channel) {
+		String name = channel.getName();
+		int frequency = channel.getFrequency();
+		double[] impulseSamples = new double[channel.length()];
+
+		boolean previousWasImpulse = false;
+		for (int i = 0; i < channel.length(); i++) {
+			boolean impulse = channel.getSample(i) == 1;
+			if (previousWasImpulse) {
+				impulseSamples[i] = 0;
+				if (!impulse)
+					previousWasImpulse = false;
+			} else {
+				if (impulse) {
+					impulseSamples[i] = 1;
+					previousWasImpulse = true;
+				} else {
+					impulseSamples[i] = 0;
+				}
+			}
+		}
+		return new Channel(name, frequency, impulseSamples);
+	}
+
+	public static Channel mergeCloseImpulses(final Channel channel, double mergeTimeDistance) {
+		final int indexTolerance = (int) (mergeTimeDistance * channel.getFrequency());
+		double[] impulses = new double[channel.length()];
+		for (int i = 0; i < channel.length(); i++)
+			impulses[i] = 0;
+		for (int i = 0; i < channel.length(); i++) {
+			if (channel.getSample(i) > 0) {
+				int[] merge = mergeToCloseEnough(i, indexTolerance, channel);
+				impulses[merge[0]] = 1;
+				i = merge[1];
+			}
+		}
+		return new Channel(channel.getName(), channel.getFrequency(), impulses);
+	}
+
+	private static int[] mergeToCloseEnough(int startIndex, int indexTolerance, Channel channel) {
+		int merge[] = { 0, 0 };
+		int count = 0;
+		for (int i = startIndex; i < startIndex + indexTolerance && i < channel.length(); i++) {
+			if (channel.getSample(i) > 0) {
+				merge[0] += i;
+				merge[1] = i;
+				count++;
+			}
+		}
+		merge[0] /= count;
+		return merge;
 	}
 }

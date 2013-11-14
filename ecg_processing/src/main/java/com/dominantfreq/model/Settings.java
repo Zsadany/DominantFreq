@@ -22,6 +22,7 @@ public class Settings {
 	private static AtomicInteger spectrumSmoothing = new AtomicInteger(0);
 	private static AtomicInteger samplingFilterWidth = new AtomicInteger(1);
 	private static AtomicBoolean abs = new AtomicBoolean(false);
+	private static AtomicBoolean impulsify = new AtomicBoolean(false);
 	private static AtomicReference<Double> hzToFlatten = new AtomicReference<Double>(0.5);
 
 	public static Integer getStartTime() {
@@ -118,5 +119,13 @@ public class Settings {
 
 	public static void setHzToFlatten(double hzToFlatten) {
 		Settings.hzToFlatten.set(hzToFlatten);
+	}
+
+	public static boolean getImpulsify() {
+		return impulsify.get();
+	}
+
+	public static void setImpulsify(boolean impulsify) {
+		Settings.impulsify.set(impulsify);
 	}
 }

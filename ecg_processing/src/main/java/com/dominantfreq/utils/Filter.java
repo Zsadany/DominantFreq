@@ -38,7 +38,19 @@ public class Filter {
 		return min;
 	}
 
-	public static double smoothing(double... values) {
+	public static double[] calculateFilteredArrayFrom(double[] array) {
+		double[] result = new double[array.length];
+		result[0] = 0;
+		result[1] = 0;
+		result[array.length - 1] = 0;
+		result[array.length - 2] = 0;
+		for (int index = 2; index < array.length - 2; index++) {
+			result[index] = Filter.hammingFilter(array[index - 2], array[index - 1], array[index], array[index + 1], array[index + 2]);
+		}
+		return result;
+	}
+
+	public static double hammingFilter(double... values) {
 		double hamming = 0;
 		WindowFunction windowFunction = WindowFunctionFactory.getInstanceOfType(Window.HAMMING);
 		double[] window = windowFunction.createWindowOf(values.length);
@@ -53,15 +65,4 @@ public class Filter {
 		return hamming;
 	}
 
-	public static double[] calculateFilteredArrayFrom(double[] array) {
-		double[] result = new double[array.length];
-		result[0] = 0;
-		result[1] = 0;
-		result[array.length - 1] = 0;
-		result[array.length - 2] = 0;
-		for (int index = 2; index < array.length - 2; index++) {
-			result[index] = Filter.smoothing(array[index - 2], array[index - 1], array[index], array[index + 1], array[index + 2]);
-		}
-		return result;
-	}
 }

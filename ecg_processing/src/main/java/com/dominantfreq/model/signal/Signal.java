@@ -10,9 +10,6 @@ public abstract class Signal {
 	public Signal(String name, double[] samples) {
 		this.name = name;
 		this.samples = samples;
-		maximum = Double.NaN;
-		minimum = Double.NaN;
-		average = Double.NaN;
 	}
 
 	public String getName() {
@@ -31,37 +28,29 @@ public abstract class Signal {
 		return samples.length;
 	}
 
-	public double getMax() {
-		if (maximum == Double.NaN) {
-			maximum = Double.MIN_VALUE;
-			for (int i = 0; i < length(); i++) {
-				if (maximum < samples[i]) {
-					maximum = samples[i];
-				}
-			}
+	public double calcMax() {
+		maximum = Double.MIN_VALUE;
+		for (int i = 0; i < length(); i++) {
+			if (maximum < samples[i])
+				maximum = samples[i];
 		}
 		return maximum;
 	}
 
-	public double getMin() {
-		if (minimum == Double.NaN) {
-			maximum = Double.MIN_VALUE;
-			for (int i = 0; i < length(); i++) {
-				if (maximum < samples[i]) {
-					maximum = samples[i];
-				}
-			}
+	public double calcMin() {
+		maximum = Double.MIN_VALUE;
+		for (int i = 0; i < length(); i++) {
+			if (maximum < samples[i])
+				maximum = samples[i];
 		}
 		return minimum;
 	}
 
-	public double getAvg() {
-//		if (average == Double.NaN) {
-			average = 0;
-			for (int i = 0; i < length(); i++)
-				average += samples[i];
-			average /= samples.length;
-//		}
+	public double calcAvg() {
+		average = 0;
+		for (int i = 0; i < length(); i++)
+			average += samples[i];
+		average /= samples.length;
 		return average;
 	}
 
@@ -69,14 +58,12 @@ public abstract class Signal {
 		average = 0;
 		maximum = Double.MIN_VALUE;
 		minimum = Double.MAX_VALUE;
-		for (int j = 0; j < samples.length; j++) {
-			average += samples[j];
-			if (maximum < samples[j]) {
-				maximum = samples[j];
-			}
-			if (minimum > samples[j]) {
-				minimum = samples[j];
-			}
+		for (int i = 0; i < samples.length; i++) {
+			average += samples[i];
+			if (maximum < samples[i])
+				maximum = samples[i];
+			if (minimum > samples[i])
+				minimum = samples[i];
 		}
 		average /= samples.length;
 		for (int j = 0; j < samples.length; j++) {

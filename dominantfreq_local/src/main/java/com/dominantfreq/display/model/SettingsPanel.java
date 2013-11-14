@@ -13,6 +13,7 @@ import javax.swing.JSeparator;
 
 import com.dominantfreq.display.model.buttons.DrawButton;
 import com.dominantfreq.display.model.checkboxes.AbsCheck;
+import com.dominantfreq.display.model.checkboxes.ImpulsifyCheck;
 import com.dominantfreq.display.model.comboboxes.SelectorBox;
 import com.dominantfreq.display.model.sliders.SettingsSlider;
 import com.dominantfreq.display.model.spinners.FilterSpinner;
@@ -38,20 +39,21 @@ public class SettingsPanel extends JFXPanel {
 	private SettingsSlider timeIntervalWidth;
 	private SettingsSlider frequencyWidth;
 	private SettingsSlider filterWidth;
+	int index = 0;
 
 	public SettingsPanel(List<String> files, boolean loading) {
 		GridBagConstraints constraints = initLayout();
-		int position = 0;
-		position = addEcgSelector(loading, files, constraints, position);
-		position = addDrawEcgButton(loading, constraints, position);
-		position = addStartTimeSlider(loading, constraints, position);
-		position = addIntervalSliders(loading, constraints, position);
-		position = addFrequencyFilterWidthSlider(loading, constraints, position);
-		position = addWindowFunctionSelector(loading, constraints, position);
-		position = addFilterSpinner(loading, constraints, position);
-		position = addAbsCheckbox(loading, constraints, position);
-		position = addProcessButton(loading, constraints, position);
-		addProgressBar(loading, constraints, position);
+		addEcgSelector(loading, files, constraints);
+		addDrawEcgButton(loading, constraints);
+		addStartTimeSlider(loading, constraints);
+		addIntervalSliders(loading, constraints);
+		addFrequencyFilterWidthSlider(loading, constraints);
+		addWindowFunctionSelector(loading, constraints);
+		addFilterSpinner(loading, constraints);
+		addAbsCheckbox(loading, constraints);
+		addImpulsifyCheckbox(loading, constraints);
+		addProcessButton(loading, constraints);
+		addProgressBar(loading, constraints);
 	}
 
 	private GridBagConstraints initLayout() {
@@ -62,7 +64,7 @@ public class SettingsPanel extends JFXPanel {
 		return c;
 	}
 
-	private int addEcgSelector(Boolean loading, List<String> files, GridBagConstraints constraints, int index) {
+	private int addEcgSelector(Boolean loading, List<String> files, GridBagConstraints constraints) {
 		label = new JLabel("Select ECG: ");
 		constraints.gridx = 0;
 		constraints.gridy = index;
@@ -89,7 +91,7 @@ public class SettingsPanel extends JFXPanel {
 		return index;
 	}
 
-	private int addStartTimeSlider(boolean loading, GridBagConstraints constraints, int index) {
+	private int addStartTimeSlider(boolean loading, GridBagConstraints constraints) {
 		constraints.ipady = 10;
 		constraints.gridx = 0;
 		constraints.gridy = index;
@@ -112,7 +114,7 @@ public class SettingsPanel extends JFXPanel {
 		return index;
 	}
 
-	private int addFrequencyFilterWidthSlider(boolean loading, GridBagConstraints constraints, int index) {
+	private int addFrequencyFilterWidthSlider(boolean loading, GridBagConstraints constraints) {
 		constraints.ipady = 10;
 		constraints.gridx = 0;
 		constraints.gridy = index;
@@ -132,7 +134,7 @@ public class SettingsPanel extends JFXPanel {
 		return index;
 	}
 
-	private int addIntervalSliders(boolean loading, GridBagConstraints constraints, int index) {
+	private int addIntervalSliders(boolean loading, GridBagConstraints constraints) {
 		constraints.ipady = 10;
 		constraints.gridx = 0;
 		constraints.gridy = index;
@@ -167,7 +169,7 @@ public class SettingsPanel extends JFXPanel {
 		return index;
 	}
 
-	private int addWindowFunctionSelector(boolean loading, GridBagConstraints constraints, int index) {
+	private int addWindowFunctionSelector(boolean loading, GridBagConstraints constraints) {
 		label = new JLabel("Window Function: ");
 		constraints.gridx = 0;
 		constraints.gridy = index;
@@ -186,7 +188,7 @@ public class SettingsPanel extends JFXPanel {
 		return index;
 	}
 
-	private int addFilterSpinner(boolean loading, GridBagConstraints constraints, int index) {
+	private int addFilterSpinner(boolean loading, GridBagConstraints constraints) {
 		constraints.ipady = 10;
 		label = new JLabel("Spectrum Filter Level: ");
 		constraints.gridx = 0;
@@ -207,7 +209,7 @@ public class SettingsPanel extends JFXPanel {
 		return index;
 	}
 
-	private int addAbsCheckbox(boolean loading, GridBagConstraints constraints, int index) {
+	private int addAbsCheckbox(boolean loading, GridBagConstraints constraints) {
 		constraints.ipady = 10;
 		label = new JLabel("Abs. Values: ");
 		constraints.gridx = 0;
@@ -216,7 +218,6 @@ public class SettingsPanel extends JFXPanel {
 		this.add(label, constraints);
 		AbsCheck af = new AbsCheck();
 		af.setSelected(Settings.getAbs());
-		af.addActionListener(af);
 		af.setEnabled(!loading);
 		constraints.gridx = 1;
 		constraints.gridy = index;
@@ -226,7 +227,25 @@ public class SettingsPanel extends JFXPanel {
 		return index;
 	}
 
-	private void addProgressBar(boolean loading, GridBagConstraints constraints, int index) {
+	private int addImpulsifyCheckbox(boolean loading, GridBagConstraints constraints) {
+		constraints.ipady = 10;
+		label = new JLabel("Impulsify Ecg: ");
+		constraints.gridx = 0;
+		constraints.gridy = index;
+		constraints.gridwidth = 1;
+		this.add(label, constraints);
+		ImpulsifyCheck af = new ImpulsifyCheck();
+		af.setSelected(Settings.getImpulsify());
+		af.setEnabled(!loading);
+		constraints.gridx = 1;
+		constraints.gridy = index;
+		constraints.gridwidth = 2;
+		this.add(af, constraints);
+		index++;
+		return index;
+	}
+
+	private void addProgressBar(boolean loading, GridBagConstraints constraints) {
 		constraints.ipady = 0;
 		progressBar = new JProgressBar();
 		progressBar.setIndeterminate(true);
@@ -238,7 +257,7 @@ public class SettingsPanel extends JFXPanel {
 		index++;
 	}
 
-	private int addProcessButton(boolean loading, GridBagConstraints constraints, int index) {
+	private int addProcessButton(boolean loading, GridBagConstraints constraints) {
 		DrawButton draw = new DrawButton("Process and Draw Config", false);
 		draw.addActionListener(draw);
 		draw.setEnabled(!loading);
@@ -250,7 +269,7 @@ public class SettingsPanel extends JFXPanel {
 		return index;
 	}
 
-	private int addDrawEcgButton(boolean loading, GridBagConstraints constraints, int index) {
+	private int addDrawEcgButton(boolean loading, GridBagConstraints constraints) {
 		DrawButton draw = new DrawButton("Draw Ecg Only", true);
 		draw.addActionListener(draw);
 		draw.setEnabled(!loading);

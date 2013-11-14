@@ -52,6 +52,6 @@ public class SpectrumAnalyser extends CallableTransformation<RealSpectrum, Spect
 		for (int index = 0, relative = subFrequency - filterLowIndex; index < filterWidth; index++, relative++) {
 			frequencies[index] = spectrum.getSample(relative);
 		}
-		return Filter.smoothing(frequencies);
+		return Filter.hammingFilter(frequencies);
 	}
 }

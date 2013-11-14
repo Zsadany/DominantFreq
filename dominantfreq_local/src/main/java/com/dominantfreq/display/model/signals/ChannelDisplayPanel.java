@@ -28,7 +28,7 @@ public class ChannelDisplayPanel extends SignalDisplay {
 
 	public ChannelDisplayPanel(Channel channel) {
 		this();
-		double signalHeight = channel.getMax() - channel.getMin();
+		double signalHeight = channel.calcMax() - channel.calcMin();
 		double baseline = baseline(channel, height);
 		numberOfPointsToDraw = channel.length();
 		startTime = 0;
@@ -64,8 +64,8 @@ public class ChannelDisplayPanel extends SignalDisplay {
 	}
 
 	private double baseline(Channel channel, double height) {
-		double signalHeight = channel.getMax() - channel.getMin();
-		return (height / 2) + (channel.getMin() * (height / 3) / signalHeight) - 70;
+		double signalHeight = channel.calcMax() - channel.calcMin();
+		return (height / 2) + (channel.calcMin() * (height / 3) / signalHeight) - 70;
 	}
 
 	private void initScale(int width) {

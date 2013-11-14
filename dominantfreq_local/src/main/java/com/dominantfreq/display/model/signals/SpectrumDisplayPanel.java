@@ -33,8 +33,8 @@ public class SpectrumDisplayPanel extends SignalDisplay {
 		hDivBy = 40 / Settings.getMaxFrequency();
 		name = "Spectrum";
 		initScale(width);
-		double max = spectrum.getMax();
-		double min = spectrum.getMin();
+		double max = spectrum.calcMax();
+		double min = spectrum.calcMin();
 		double signalHeight = max - min;
 		double baseline = (height / 2) + (min * (height / 3) / signalHeight) - 70;
 		int numnberOfPointsToDraw = spectrum.length();
