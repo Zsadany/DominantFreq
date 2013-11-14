@@ -14,6 +14,7 @@ tmp/
 *.inf
 *.txt
 *.class
+*.gitignore
 local.properties
 .classpath
 .settings/
