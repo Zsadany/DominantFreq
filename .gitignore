@@ -15,6 +15,7 @@ tmp/
 *.txt
 *.class
 *.gitignore
+*.stackdump
 local.properties
 .classpath
 .settings/
