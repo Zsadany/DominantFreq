@@ -1,4 +1,4 @@
-package com.dominantfreq;
+package com.dominantfreq.display;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -30,7 +30,6 @@ import javafx.scene.control.Pagination;
 import javafx.scene.control.Separator;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
@@ -42,7 +41,8 @@ import javafx.util.Duration;
 
 public class BulkDisplay extends Application {
 	private static ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
-	private static final int ITEMS_PER_HALF_PAGE = 8;
+	private static int itemsPerColumn = 8;
+	private static int column = 2;
 	private Stage stage;
 
 	private String selectedDir;
@@ -52,8 +52,8 @@ public class BulkDisplay extends Application {
 	private LocalActions localActions;
 	private Timeline uiUpdateCycle;
 
-	public static void main(final String[] arguments) {
-		launch(arguments);
+	public static void main(String[] args) {
+		launch(args);
 	}
 
 	@Override
@@ -61,6 +61,7 @@ public class BulkDisplay extends Application {
 		this.stage = stage;
 		stage.setTitle("ECGs");
 		stage.setFullScreen(true);
+		setScreenVariables();
 
 		callbacks = new PageCreation();
 		localHandlers = new LocalHandlers();
@@ -69,7 +70,7 @@ public class BulkDisplay extends Application {
 		chooseDirectory(stage);
 		items = loadItemsInDirectory();
 
-		FlowPane pane = new FlowPane();
+		HBox pane = new HBox();
 		BulkSettingsPanel bulkSettingsPanel = createSettingsPane();
 		pane.getChildren().add(bulkSettingsPanel);
 		AnchorPane paginatedPane = createPaginatedPane(bulkSettingsPanel);
@@ -83,6 +84,19 @@ public class BulkDisplay extends Application {
 		uiUpdateCycle = new Timeline(new KeyFrame(Duration.seconds(0.2), localHandlers.itemsUpdate));
 		uiUpdateCycle.setCycleCount(Timeline.INDEFINITE);
 		uiUpdateCycle.play();
+	}
+
+	private void setScreenVariables() {
+		double screenX = Screen.getPrimary().getBounds().getMaxX();
+		double screenY = Screen.getPrimary().getBounds().getMaxY();
+		if (screenX < 1800)
+			column = 1;
+		if (screenY < 700)
+			itemsPerColumn = 4;
+		else if (screenY < 800)
+			itemsPerColumn = 5;
+		else if (screenY < 1080)
+			itemsPerColumn = 6;
 	}
 
 	private void chooseDirectory(final Stage stage) {
@@ -123,6 +137,7 @@ public class BulkDisplay extends Application {
 		bulkSettingsPanel.getChildren().add(separator2);
 		bulkSettingsPanel.getChildren().add(closeButton);
 		bulkSettingsPanel.setPrefHeight(screenY);
+		bulkSettingsPanel.setMinWidth(200);
 		bulkSettingsPanel.autosize();
 		return bulkSettingsPanel;
 	}
@@ -159,7 +174,7 @@ public class BulkDisplay extends Application {
 
 	private int calcNumberOfPages() {
 		int numberOfItems = items.size();
-		int itemsOn1Page = ITEMS_PER_HALF_PAGE * 2;
+		int itemsOn1Page = itemsPerColumn * column;
 		int extra = numberOfItems % itemsOn1Page > 0 ? 1 : 0;
 		int numberOfPages = (numberOfItems / itemsOn1Page) + extra;
 		return numberOfPages;
@@ -179,13 +194,13 @@ public class BulkDisplay extends Application {
 			HBox hbox = new HBox();
 
 			int numberOfItems = items.size();
-			int itemsOn1Page = ITEMS_PER_HALF_PAGE * 2;
+			int itemsOn1Page = itemsPerColumn * column;
 			int page = itemsOn1Page * pageIndex;
-			for (int i = page; (i < page + ITEMS_PER_HALF_PAGE) && (i < numberOfItems); i++) {
+			for (int i = page; (i < page + itemsPerColumn) && (i < numberOfItems); i++) {
 				VBox.setMargin(items.get(i), new Insets(7, 15, 7, 7));
 				vbox1.getChildren().add(items.get(i));
 			}
-			for (int i = page + ITEMS_PER_HALF_PAGE; (i < page + 2 * ITEMS_PER_HALF_PAGE) && (i < numberOfItems); i++) {
+			for (int i = page + itemsPerColumn; (i < page + column * itemsPerColumn) && (i < numberOfItems); i++) {
 				VBox.setMargin(items.get(i), new Insets(7, 7, 7, 15));
 				vbox2.getChildren().add(items.get(i));
 			}

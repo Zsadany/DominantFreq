@@ -20,7 +20,6 @@ public class ChannelPreProcessor extends CallableTransformation<Channel, Channel
 		Window windowFunction = Settings.getWindowFunction();
 		if (Settings.getImpulsify()) {
 			transformedChannel.normalize();
-			// TODO review
 			transformedChannel = ChannelTool.applyFilterToChannel(transformedChannel);
 			transformedChannel = ChannelTool.inflateChannelValues(transformedChannel);
 			transformedChannel = ChannelTool.inflateChannelValues(transformedChannel);

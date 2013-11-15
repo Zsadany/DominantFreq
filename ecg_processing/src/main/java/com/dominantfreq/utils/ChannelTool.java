@@ -110,13 +110,15 @@ public class ChannelTool {
 	public static Channel mergeCloseImpulses(final Channel channel, double mergeTimeDistance) {
 		final int indexTolerance = (int) (mergeTimeDistance * channel.getFrequency());
 		double[] impulses = new double[channel.length()];
+		final int VALUE = 0;
+		final int INDEX = 1;
 		for (int i = 0; i < channel.length(); i++)
 			impulses[i] = 0;
 		for (int i = 0; i < channel.length(); i++) {
 			if (channel.getSample(i) > 0) {
 				int[] merge = mergeToCloseEnough(i, indexTolerance, channel);
-				impulses[merge[0]] = 1;
-				i = merge[1];
+				impulses[merge[VALUE]] = 1;
+				i = merge[INDEX];
 			}
 		}
 		return new Channel(channel.getName(), channel.getFrequency(), impulses);

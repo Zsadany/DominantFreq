@@ -13,9 +13,6 @@ import com.dominantfreq.model.dataaccess.EcgBuffer;
  */
 public class Main {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		try {
 			run();
