@@ -16,6 +16,7 @@ tmp/
 *.class
 *.gitignore
 *.stackdump
+*.xls
 local.properties
 .classpath
 .settings/

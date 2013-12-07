@@ -24,6 +24,6 @@ public class Main {
 	private static void run() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		EcgBuffer.initDataBuffer();
 		Display.init();
-		Display.preLoadECG();
+		Display.preLoadECG();	
 	}
 }
